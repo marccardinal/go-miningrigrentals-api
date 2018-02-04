@@ -49,7 +49,7 @@ func (c *Client) ListRigs(algotype string) ([]RigList, *RigListInfo, error) {
 	var data json.RawMessage
 	params := getBasicMap("list")
 	params["type"] = algotype
-	_, err := c.Request("POST", "rigs", params, &data)
+	_, err := c.Request("POST", "rig", params, &data)
 	if err != nil {
 		return nil, nil, err
 	}
