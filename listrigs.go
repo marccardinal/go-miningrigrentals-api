@@ -45,10 +45,11 @@ type RigListResponse struct {
 	Info    RigListInfo `json:"info"`
 }
 
-func (c *Client) ListRigs(algotype string) ([]RigList, *RigListInfo, error) {
+func (c *Client) ListRigs(algotype string, page int) ([]RigList, *RigListInfo, error) {
 	var data json.RawMessage
 	params := getBasicMap("list")
 	params["type"] = algotype
+	params["page"] = page
 	_, err := c.Request("POST", "rig", params, &data)
 	if err != nil {
 		return nil, nil, err
