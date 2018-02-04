@@ -40,7 +40,7 @@ type RigList struct {
 	Status       string
 	HashRate     uint64  `json:"hashrate,string"`
 	HashRateNice string  `json:"hashrate_nice"`
-	AvailInHours float64 `json:"available_in_hours,string"`
+	AvailInHours json.Number `json:"available_in_hours,Number"`
 }
 
 type RigListResponse struct {
