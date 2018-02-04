@@ -1,13 +1,15 @@
 package miningrigrentals
 
 import (
+	"strconv"
 	"encoding/json"
+	// "fmt"
 )
 
 type RigListInfo struct {
-	Start     uint32 `json:"start_num"`
-	End       uint32 `json:"end_num"`
-	Total     uint32 `json:"total,string"`
+	Start     uint32      `json:"start_num"`
+	End       json.Number `json:"end_num,Number"` // Apparently on the last page the end_num value is a string...:(
+	Total     uint32      `json:"total,string"`
 	Available RigListInfoStats `json:"available"`
 	Rented    RigListInfoStats `json:"rented"`
 	Price     RigListInfoPrice `json:"price"`
@@ -32,8 +34,8 @@ type RigList struct {
 	Online       uint8 `json:"online,string"`
 	Price        float64 `json:"price,string"`
 	PriceHour    float64 `json:"price_hr,string"`
-	MinHours     uint16 `json:"minhrs,string"`
-	MaxHours     uint16 `json:"maxhrs,string"`
+	MinHours     uint32 `json:"minhrs,string"`
+	MaxHours     uint32 `json:"maxhrs,string"`
 	Rating       float64 `json:"rating,string"`
 	Status       string
 	HashRate     uint64 `json:"hashrate,string"`
@@ -49,12 +51,12 @@ func (c *Client) ListRigs(algotype string, page int) ([]RigList, *RigListInfo, e
 	var data json.RawMessage
 	params := getBasicMap("list")
 	params["type"] = algotype
-	params["page"] = page
+	params["page"] = strconv.Itoa(page)
 	_, err := c.Request("POST", "rig", params, &data)
 	if err != nil {
 		return nil, nil, err
 	}
-	//	fmt.Printf("%+v\n", string(data))
+		// fmt.Printf("%+v\n", string(data))
 
 	var response RigListResponse
 	if err := json.Unmarshal([]byte(data), &response); err != nil {
@@ -62,4 +64,3 @@ func (c *Client) ListRigs(algotype string, page int) ([]RigList, *RigListInfo, e
 	}
 	return response.Records, &response.Info, err
 }
-
