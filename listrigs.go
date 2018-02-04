@@ -3,7 +3,7 @@ package miningrigrentals
 import (
 	"strconv"
 	"encoding/json"
-	"fmt"
+	// "fmt"
 )
 
 type RigListInfo struct {
@@ -40,7 +40,7 @@ type RigList struct {
 	Status       string
 	HashRate     uint64  `json:"hashrate,string"`
 	HashRateNice string  `json:"hashrate_nice"`
-	AvailInHours float64 `json:"available_in_hours"`
+	AvailInHours float64 `json:"available_in_hours,string"`
 }
 
 type RigListResponse struct {
@@ -57,7 +57,7 @@ func (c *Client) ListRigs(algotype string, page int) ([]RigList, *RigListInfo, e
 	if err != nil {
 		return nil, nil, err
 	}
-		fmt.Printf("%+v\n", string(data))
+		// fmt.Printf("%+v\n", string(data))
 
 	var response RigListResponse
 	if err := json.Unmarshal([]byte(data), &response); err != nil {
