@@ -3,7 +3,7 @@ package miningrigrentals
 import (
 	"strconv"
 	"encoding/json"
-	// "fmt"
+	"fmt"
 )
 
 type RigListInfo struct {
@@ -27,19 +27,20 @@ type RigListInfoPrice struct {
 }
 
 type RigList struct {
-	Id           uint64 `json:"id,string"`
-	Name         string `json:"name"`
+	Id           uint64  `json:"id,string"`
+	Name         string  `json:"name"`
 	Rpi          string
 	Type         string
-	Online       uint8 `json:"online,string"`
+	Online       uint8   `json:"online,string"`
 	Price        float64 `json:"price,string"`
 	PriceHour    float64 `json:"price_hr,string"`
-	MinHours     uint32 `json:"minhrs,string"`
-	MaxHours     uint32 `json:"maxhrs,string"`
+	MinHours     uint32  `json:"minhrs,string"`
+	MaxHours     uint32  `json:"maxhrs,string"`
 	Rating       float64 `json:"rating,string"`
 	Status       string
-	HashRate     uint64 `json:"hashrate,string"`
-	HashRateNice string `json:"hashrate_nice"`
+	HashRate     uint64  `json:"hashrate,string"`
+	HashRateNice string  `json:"hashrate_nice"`
+	AvailInHours float64 `json:"available_in_hours"`
 }
 
 type RigListResponse struct {
@@ -56,7 +57,7 @@ func (c *Client) ListRigs(algotype string, page int) ([]RigList, *RigListInfo, e
 	if err != nil {
 		return nil, nil, err
 	}
-		// fmt.Printf("%+v\n", string(data))
+		fmt.Printf("%+v\n", string(data))
 
 	var response RigListResponse
 	if err := json.Unmarshal([]byte(data), &response); err != nil {
