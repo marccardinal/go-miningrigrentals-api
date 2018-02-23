@@ -18,8 +18,8 @@ type RigDetails struct {
 	Price            float64 `json:"price,string"`
 	Status           string
 	HashRate         RigHashRate `json:"hashrate"`
-	MinHours         uint16
-	MaxHours         uint16
+	MinHours         uint32
+	MaxHours         uint32
 	AvailableInHours float64 `json:"available_in_hours,string,omitempty"`
 }
 
