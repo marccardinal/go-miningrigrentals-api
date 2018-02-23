@@ -71,7 +71,7 @@ func (c *Client) GetRigDetails(id int64) (*RigDetails, error) {
 	var data json.RawMessage
 	params := getBasicMap("detail")
 	params["id"] = strconv.FormatInt(id, 10)
-	_, err := c.Request("POST", "rigs", params, &data)
+	_, err := c.Request("POST", "rig", params, &data)
 	if err != nil {
 		return nil, err
 	}
